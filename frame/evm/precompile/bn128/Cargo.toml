@@ -11,7 +11,7 @@ description = "BN128 precompiles for EVM pallet."
 [dependencies]
 bn = { package = "substrate-bn", version = "0.6", default-features = false }
 
-sp-core = { version = "5.0.0", git = "https://github.com/paritytech/substrate", branch = "master", default-features = false }
+sp-core = { version = "5.0.0", git = "https://github.com/paritytech/substrate", rev = "4bc2af13cd81007a2a340d0333062179420d5daf", default-features = false }
 
 fp-evm = { version = "3.0.0-dev", path = "../../../../primitives/evm", default-features = false }
 
