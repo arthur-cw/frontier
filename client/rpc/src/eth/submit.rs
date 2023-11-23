@@ -51,7 +51,7 @@ where
 	A: ChainApi<Block = B> + 'static,
 {
 	pub async fn send_transaction(&self, request: TransactionRequest) -> Result<H256> {
-		log::info!(target: "rpc::eth_sendTransaction", "{:?}", request);
+		cwn::frontier::log_eth_send_transaction(&request);
 
 		let from = match request.from {
 			Some(from) => from,
@@ -233,7 +233,7 @@ where
 			}
 		};
 
-		log::info!(target: "rpc::eth_sendRawTransaction", "{:?}", transaction);
+		cwn::frontier::log_eth_send_raw_transaction(&transaction);
 
 		let transaction_hash = transaction.hash();
 
