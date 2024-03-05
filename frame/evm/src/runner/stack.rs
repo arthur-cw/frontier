@@ -125,7 +125,7 @@ where
 			value,
 			gas_limit,
 			actual_fee,
-			is_transactional
+			is_transactional,
 		);
 		// The difference between initially withdrawn and the actual cost is refunded.
 		//
@@ -165,7 +165,7 @@ where
 			log::debug!(
 				target: "evm",
 				"Deleting account at {:?}",
-				address
+				address,
 			);
 			Pallet::<T>::remove_account(&address)
 		}
@@ -178,7 +178,7 @@ where
 				log.topics.len(),
 				log.topics,
 				log.data.len(),
-				log.data
+				log.data,
 			);
 			Pallet::<T>::deposit_event(Event::<T>::Log {
 				log: Log {
@@ -632,18 +632,20 @@ where
 		if value == H256::default() {
 			log::debug!(
 				target: "evm",
-				"Removing storage for {:?} [index: {:?}]",
+				"Removing storage for {:?} [index: {:?}] in block {:?}",
 				address,
 				index,
+				self.block_number(),
 			);
 			<AccountStorages<T>>::remove(address, index);
 		} else {
 			log::debug!(
 				target: "evm",
-				"Updating storage for {:?} [index: {:?}, value: {:?}]",
+				"Updating storage for {:?} [index: {:?}, value: {:?}] in block {:?}",
 				address,
 				index,
 				value,
+				self.block_number(),
 			);
 			<AccountStorages<T>>::insert(address, index, value);
 		}
@@ -665,9 +667,10 @@ where
 	fn set_code(&mut self, address: H160, code: Vec<u8>) {
 		log::debug!(
 			target: "evm",
-			"Inserting code ({} bytes) at {:?}",
+			"Inserting code ({} bytes) at {:?} in block {:?}",
 			code.len(),
-			address
+			address,
+			self.block_number(),
 		);
 		Pallet::<T>::create_account(address, code);
 	}
