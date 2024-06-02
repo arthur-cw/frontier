@@ -109,7 +109,7 @@ where
 	}
 
 	pub fn transaction_count(&self, address: H160, number: Option<BlockNumber>) -> Result<U256> {
-		log::info!(target: "rpc::eth_getTransactionCount", "address: {:?}, number: {:?}", address, number);
+		cwn::frontier::log_eth_get_transaction_count(&address, &number);
 
 		if let Some(BlockNumber::Pending) = number {
 			let block = BlockId::Hash(self.client.info().best_hash);
